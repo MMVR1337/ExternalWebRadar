@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="radar">
+        <div class="square" data-size="400"></div>
+        <div class="square" data-size="200"></div>
+        <div class="square" data-size="100"></div>
+        <div class="square" data-size="50"></div>
+    </div>
+    <script>
+        async function fetchPlayerPositions() {
+            const response = await fetch('/get_positions');
+            const data = await response.json();
+            return data.players;
+        }
+
+        function updateRadar(players) {
+            const radar = document.getElementById('radar');
+            const playerElements = radar.getElementsByClassName('player');
+            while(playerElements[0]) {
+                playerElements[0].parentNode.removeChild(playerElements[0]);
+            }
+            players.forEach(player => {
+                const playerDiv = document.createElement('div');
+                playerDiv.className = 'player';
+                playerDiv.style.left = `${(player.x / 400) * 400 + 250}px`;
+                playerDiv.style.top = `${(player.y / 400) * 400 + 250}px`;
+                radar.appendChild(playerDiv);
+            });
+        }
+
+        async function updateLoop() {
+            const players = await fetchPlayerPositions();
+            updateRadar(players);
+            setTimeout(updateLoop, 1000);
+        }
+
+        updateLoop();
+    </script>
+</body>
+</html>

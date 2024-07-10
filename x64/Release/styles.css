@@ -1,0 +1,37 @@
+body {
+    background-color: #2d2d2d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#radar {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: #1e1e2e;
+    border: 1px solid #555;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.square {
+    position: absolute;
+    border: 1px solid #555;
+    pointer-events: none;
+}
+
+.square[data-size="400"] { width: 400px; height: 400px; top: 50px; left: 50px; }
+.square[data-size="200"] { width: 200px; height: 200px; top: 150px; left: 150px; }
+.square[data-size="100"] { width: 100px; height: 100px; top: 200px; left: 200px; }
+.square[data-size="50"] { width: 50px; height: 50px; top: 225px; left: 225px; }
+
+.player {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
